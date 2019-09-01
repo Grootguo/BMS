@@ -1,191 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>BMS图书管理系统</title>
-    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
-</head>
-<body>
-    <!--nav-->
-    <nav class="navbar-default " >
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">图书管理系统</a>
-            </div>
+{% extends 'index.html' %}
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="">首页 <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Link</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">消息</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">当前用户 <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">个人信息</a></li>
-                            <li><a href="#">修改密码</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">退出</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-
-    <!--侧边导航栏-->
-    <div class="navbar col-md-2" id="sidebar-wrapper" role="navigation">
-        <ul class="nav sidebar-nav">
-            <li class="sidebar-brand"> <a href="#"> 图书管理 </a> </li>
-            <li> <a href="#"> <i class="fa fa-fw fa-home"> </i> 作者管理 </a> </li>
-            <li> <a href="#"> <i class="fa fa-fw fa-folder"> </i> Page one </a> </li>
-            <li> <a href="#"> <i class="fa fa-fw fa-file-o"> </i> Second page </a> </li>
-            <li> <a href="#"> <i class="fa fa-fw fa-cog"> </i> Third page </a> </li>
-            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-fw fa-plus"> </i> Dropdown <span class="caret"> </span> </a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="dropdown-header"> Dropdown heading </li>
-                    <li> <a href="#"> Action </a> </li>
-                    <li> <a href="#"> Another action </a> </li>
-                    <li> <a href="#"> Something else here </a> </li>
-                    <li> <a href="#"> Separated link </a> </li>
-                    <li> <a href="#"> One more separated link </a> </li>
-                </ul>
-            </li>
-            <li> <a href="#"> <i class="fa fa-fw fa-bank"> </i> Page four </a> </li>
-            <li> <a href="#"> <i class="fa fa-fw fa-dropbox"> </i> Page 5 </a> </li>
-            <li> <a href="#"> <i class="fa fa-fw fa-twitter"> </i> Last page </a> </li>
-        </ul>
-    </div>
-
-    <div>
-        <ol class="breadcrumb">
-          <li><a href="#">首页</a></li>
-          <li><a href="#">图书管理</a></li>
-{#          <li class="active">Data</li>#}
-        </ol>
-    </div>
-
-    <!--主体内容-->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <a href="" class="btn btn-default ">添加图书</a>
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>编号</th>
-                                <th>书籍名称</th>
-                                <th>价格</th>
-                                <th>出版日期</th>
-                                <th>出版社</th>
-                                <th>作者</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for foo in book %}
-                                <tr>
-                                    <td>{{ forloop.counter }}</td>
-                                    <td>{{ foo.title }}</td>
-                                    <td>{{ foo.price }}</td>
-                                    <td>{{ foo.pub_date|date:'Y-m-d' }}</td>
-                                    <td>{{ foo.publish.name }}</td>
-                                    <td>
-                                        {% for author in foo.authors.all %}
-                                            <span>{{ author.name }}</span>
-                                        {% if not forloop.last %}
-                                        ,
-                                        {% endif %}
-                                        {% endfor %}
-                                    </td>
-                                    <td>
-                                        <a href="" class="btn btn-warning">编辑</a>
-                                        <a href="" class="btn btn-danger">删除</a>
-                                    </td>
-                                </tr>
+{% block content %}
+    <!--展示书籍页面-->
+    <div class="col-md-10 col-md-offset-1">
+        <a href="{% url 'add_book' %}" class="btn btn-default ">添加图书</a>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>书籍名称</th>
+                    <th>价格</th>
+                    <th>出版日期</th>
+                    <th>出版社</th>
+                    <th>作者</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                {% for book in book_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.price }}</td>
+                        <td>{{ book.pub_date|date:'Y-m-d' }}</td>
+                        <td>{{ book.publish.name }}</td>
+                        <td>
+                            {% for author in book.authors.all %}
+                                <span>{{ author.name }}</span>
+                                {% if not forloop.last %}
+                                    ,
+                                {% endif %}
                             {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-5 col-md-offset-1">
-                    <h3>添加书籍</h3>
-                    <form action="">
-                        <div class="form-group">
-                            <label for="title">书籍名称</label>
-                            <input type="text" class="form-control" name="title" id="title" >
-                        </div>
-                        <div class="form-group">
-                            <label for="price">价格</label>
-                            <input type="number" class="form-control" name="price" id="price" >
-                        </div>
-                        <div class="form-group">
-                            <label for="pub_date">出版日期</label>
-                            <input type="date" class="form-control" name="pub_date" id="pub_date" >
-                        </div>
-                        <div class="form-group">
-                            <label for="publish_id">出版社</label>
-                            <select name="publish_id" id="publish_id" class="form-control">
-                                {% for foo in publish %}
-                                    <option value="{{ foo.nid }}" class="form-control">{{ foo.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="authors">作者</label>
-                            <select name="authors" id="authors" class="form-control" multiple>
-                                {% for foo in authors %}
-                                    <option value="{{ foo.nid }}" >{{ foo.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <input type="submit" class="btn btn-info pull-right saveBook">
-                    </form>
-                </div>
-            </div>
+                        </td>
+                        <td>
+                            <button pk="{{ book.pk }}" class="btn btn-danger btn-sm delbtn">Ajax删除</button>
+                            <a href="{% url 'edit_book' book.nid %}" class="btn btn-warning">编辑</a>
+                            {#                            <a href="books/delete/{{ book.nid }}" class="btn btn-danger del-btn" >删除</a>#}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
+        {% csrf_token %}
     </div>
+{% endblock %}
 
-
-
-
-
-    <script src="/static/js/jQuery-v3.4.1.js"></script>
-    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-
+{% block js %}
     <script>
-        $('#myCollapsible').collapse({
-          toggle: false
-        })
 
-        //添加书籍
-        $(".saveBook").click(function(){
+        $(".delbtn").click(function () {
+            var pk = $(this).attr("pk");
+            console.log($(this));
+            var ele = $(this).parent().parent();
+            // 发送删除书籍请求
             $.ajax({
-                url:'/books/',
-                type:'post',
-                data:{
-                    title:$('#title').val(),
-                    price:$('#price').val(),
-                    date:$('#pub_date').val(),
-                    publish_id:$('#publish_id').val(),
-                    authors:$('#authors').val(),
-                    csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val()
+                url: "/books/ajax_delete/" + pk + "/",
+                type: "post",
+                data: {
+                    csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
                 },
-                success:function () {
-
+                success: function (response) {
+                    console.log(response); //  '{"state":true}'
+                    // 反序列化 response
+                    var obj = JSON.parse(response);
+                    if (obj.state) {
+                        // 删除成功
+                        ele.remove()
+                    }
                 }
             })
         })
     </script>
-</body>
-</html>
+{% endblock %}

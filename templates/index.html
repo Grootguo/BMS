@@ -5,6 +5,8 @@
     <title>BMS图书管理系统</title>
     <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    {% block link %}
+    {% endblock %}
 </head>
 <body>
     <!--nav-->
@@ -24,7 +26,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="">首页 <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Link</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -75,15 +77,22 @@
           <li class="active">Data</li>
         </ol>
     </div>
-    <div class="container">
-    </div>
+     <div class="container">
+        <div class="row">
+            {% block content %}
 
+            {% endblock %}
+        </div>
+    </div>
+    
 
 
 
     <script src="/static/js/jQuery-v3.4.1.js"></script>
     <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-
+    {% block js %}
+    
+    {% endblock %}
     <script>
         $('#myCollapsible').collapse({
           toggle: false

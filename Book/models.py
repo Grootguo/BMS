@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Book(models.Model):
     nid = models.AutoField(primary_key=True)
@@ -12,20 +13,21 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+
 class Publish(models.Model):
     nid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=32)
     email = models.CharField(max_length=32)
 
+
 class Author(models.Model):
-    nid =models.AutoField(primary_key=True)
+    nid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=32)
     age = models.IntegerField()
     email = models.CharField(max_length=32)
     ad = models.OneToOneField(to="AuthorDetail", on_delete=models.CASCADE)
 
+
 class AuthorDetail(models.Model):
     addr = models.CharField(max_length=32)
     tel = models.IntegerField()
-
-
