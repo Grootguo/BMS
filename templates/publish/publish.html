@@ -3,32 +3,26 @@
 {% block content %}
     <!--展示书籍页面-->
     <div class="col-md-10 col-md-offset-1">
-        <a href="{% url 'add_author' %}" class="btn btn-default ">添加作者</a>
+        <a href="{% url 'add_publish' %}" class="btn btn-default ">添加出版社</a>
         <div class="table-responsive">
             <table class="table table-hover table-striped table-bordered">
                 <thead>
                 <tr>
                     <th>编号</th>
-                    <th>作者</th>
-                    <th>年龄</th>
+                    <th>出版社</th>
                     <th>邮箱</th>
-                    <th>地址</th>
-                    <th>电话</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody class="tbody">
-                {% for author in author_list %}
+                {% for publish in publish_list %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ author.name }}</td>
-                        <td>{{ author.age }}</td>
-                        <td>{{ author.email|default:"无" }}</td>
-                        <td>{{ author.ad.addr|default:"无" }}</td>
-                        <td>{{ author.ad.tel|default:"无" }}</td>
+                        <td>{{ publish.name }}</td>
+                        <td>{{ publihs.email|default:"无" }}</td>
                         <td>
-                            <button pk="{{ author.pk }}" class="btn btn-danger btn-sm delbtn">Ajax删除</button>
-                            <a href="{% url 'edit_author' author.nid%}" class="btn btn-warning">编辑</a>
+                            <button pk="{{ publish.pk }}" class="btn btn-danger btn-sm delbtn">Ajax删除</button>
+                            <a href="{% url 'edit_publish' publish.nid %}" class="btn btn-warning">编辑</a>
                             {#                            <a href="books/delete/{{ book.nid }}" class="btn btn-danger del-btn" >删除</a>#}
                         </td>
                     </tr>
@@ -49,7 +43,7 @@
             // 发送删除书籍请求
 
             $.ajax({
-                url: "/author/del_author/" + pk + "/",
+                url: "/publish/del_publish/" + pk + "/",
                 type: "post",
                 data: {
                     csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()

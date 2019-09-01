@@ -3,6 +3,9 @@ from django.db import models
 
 # Create your models here.
 class Book(models.Model):
+    """
+    书籍表
+    """
     nid = models.AutoField(primary_key=True)
     title = models.CharField(max_length=32)
     price = models.DecimalField(max_digits=6, decimal_places=2)
@@ -15,12 +18,18 @@ class Book(models.Model):
 
 
 class Publish(models.Model):
+    """
+    出版社表
+    """
     nid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=32)
     email = models.CharField(max_length=32)
 
 
 class Author(models.Model):
+    """
+    作者表
+    """
     nid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=32)
     age = models.IntegerField()
@@ -29,5 +38,8 @@ class Author(models.Model):
 
 
 class AuthorDetail(models.Model):
+    """
+    作者地址
+    """
     addr = models.CharField(max_length=32)
-    tel = models.IntegerField()
+    tel = models.CharField(max_length=32)

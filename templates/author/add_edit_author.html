@@ -7,12 +7,24 @@
     <form action="" method="post">
         {% csrf_token %}
         <div class="form-group">
-            <label for="name">出版社名称</label>
-            <input type="text" class="form-control" name="name" id="name" value="{{ publish_list.name }}">
+            <label for="name">作者</label>
+            <input type="text" class="form-control" name="name" id="name" value="{{ author_list.name }}">
         </div>
         <div class="form-group">
+            <label for="age">年龄</label>
+            <input type="number" max="150" min="0" class="form-control" name="age" id="age" value="{{ author_list.age }}">
+        </div>
+          <div class="form-group">
             <label for="email">邮箱</label>
-            <input type="text" class="form-control" name="email" id="email" value="{{ publish_list.email }}">
+            <input type="text" class="form-control" name="email" id="email" value="{{ author_list.email }}">
+        </div>
+        <div class="form-group">
+            <label for="addt">地址</label>
+            <input type="text" class="form-control" name="addr" id="addr" value="{{ author_list.ad.addr }}">
+        </div>
+        <div class="form-group">
+            <label for="tel">电话</label>
+            <input type="text" class="form-control" name="tel" id="tel" value="{{ author_list.ad.tel }}">
         </div>
         <input type="submit" class="btn btn-info pull-right saveBook">
     </form>
