@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <!--展示书籍页面-->
+    <div class="col-md-10 col-md-offset-1">
+        <a href="{% url 'add_book' %}" class="btn btn-default ">添加图书</a>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>出版社</th>
+                    <th>邮箱</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                {% for publish in publish_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ publish.name }}</td>
+                        <td>{{ publihs.email|default:"无" }}</td>
+                        <td>
+                            <button pk="{{ publish.pk }}" class="btn btn-danger btn-sm delbtn">Ajax删除</button>
+                            <a href="" class="btn btn-warning">编辑</a>
+                            {#                            <a href="books/delete/{{ book.nid }}" class="btn btn-danger del-btn" >删除</a>#}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% csrf_token %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+
+        $(".delbtn").click(function () {
+            var pk = $(this).attr("pk");
+            console.log($(this));
+            var ele = $(this).parent().parent();
+            // 发送删除书籍请求
+            /*
+            $.ajax({
+                url: "/books/ajax_delete/" + pk + "/",
+                type: "post",
+                data: {
+                    csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+                },
+                success: function (response) {
+                    console.log(response); //  '{"state":true}'
+                    // 反序列化 response
+                    var obj = JSON.parse(response);
+                    if (obj.state) {
+                        // 删除成功
+                        ele.remove()
+                    }
+                }
+            })
+        })*/
+    </script>
+{% endblock %}
